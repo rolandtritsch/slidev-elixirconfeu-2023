@@ -1,5 +1,4 @@
 ---
-background: '/backgrounds/community-white.png'
 theme: apple-basic
 ---
 ---
