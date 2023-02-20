@@ -1,7 +1,3 @@
-node_modules
-.DS_Store
-dist
-*.local
-index.html
-.remote-assets
-components.d.ts
+node_modules/
+package.json
+package-lock.json

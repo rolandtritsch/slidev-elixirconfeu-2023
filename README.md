@@ -1,11 +1,8 @@
-# Welcome to [Slidev](https://github.com/slidevjs/slidev)!
+# ElixirConfEU 2023 - Testing Elixir Training
 
-To start the slide show:
+To make this work you need to ...
 
-- `npm install`
-- `npm run dev`
-- visit http://localhost:3030
-
-Edit the [slides.md](./slides.md) to see the changes.
-
-Learn more about Slidev on [documentations](https://sli.dev/).
+```bash
+npm install @slidev/cli @slidev/theme-default
+npx slidev # and select open
+```
