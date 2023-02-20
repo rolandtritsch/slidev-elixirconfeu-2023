@@ -111,3 +111,35 @@ imageBottomRight: 'https://live.staticflickr.com/65535/49768700213_0c23e49354_z.
 layout: image
 image: 'https://live.staticflickr.com/65535/49768700213_0c23e49354_z.jpg'
 ---
+
+---
+layout: section
+---
+
+# Code Highlighter
+
+---
+highlighter: shiki
+---
+
+# Code Example
+
+```elixir {5|9-13|all}
+defmodule Weather.ApiTest do
+  @moduledoc false
+
+  use ExUnit.Case
+  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+
+  describe "get_forecast/1" do
+    test "success: get weather for (correct) city" do
+      use_cassette "api_successful_request" do
+        {:ok, forecast} = "Lisbon" |> Weather.Api.get_forecast()
+        assert forecast["city"]["name"] == "Lisbon"
+        assert forecast["city"]["country"] == "PT"
+      end
+    end
+  end
+end
+
+```
