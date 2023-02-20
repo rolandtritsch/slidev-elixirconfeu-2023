@@ -1,4 +1,8 @@
 ---
+background: '/backgrounds/community-white.png'
+theme: apple-basic
+---
+---
 src: ./000-intro.md
 ---
 ---
