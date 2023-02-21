@@ -2,6 +2,7 @@
 theme: apple-basic
 background: ./backgrounds/community-white.png
 transition: fade-out
+download: true
 ---
 
 ---
