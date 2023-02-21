@@ -265,3 +265,15 @@ B[Text] --> C{Decision}
 C -->|One| D[Result 1]
 C -->|Two| E[Result 2]
 ```
+
+---
+
+# Element Transition
+
+<v-clicks>
+
+* Slide bullet text
+* Slide bullet text
+* Slide bullet text
+
+</v-clicks>
