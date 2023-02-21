@@ -12,7 +12,7 @@ jobs:
         run: npm install
       - name: Install slidev
         run:  npm i -g @slidev/cli
-      - name: Build
+      - name: Build pages
         run: slidev build --base slidev-elixirconfeu-2023
       - name: Deploy pages
         uses: crazy-max/ghaction-github-pages@v2
