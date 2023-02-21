@@ -39,7 +39,7 @@ jobs:
       - name: Install slidev
         run:  npm install --global @slidev/cli @slidev/theme-default @slidev/theme-apple-basic
       - name: Build pages
-        run: slidev build --base slidev-elixirconfeu-2023
+        run: slidev build
       - name: Setup pages
         uses: actions/configure-pages@v3
       - name: Upload pages
