@@ -4,10 +4,13 @@
     "@slidev/theme-apple-basic": "^0.20.0",
     "@slidev/theme-default": "^0.21.2",
     "h": "^1.0.0",
-    "help": "^3.0.2"
+    "help": "^3.0.2",
+    "playwright-chromium": "^1.30.0"
   },
   "devDependencies": {
     "@iconify-json/logos": "^1.1.23",
-    "@iconify-json/mi": "^1.1.4"
+    "@iconify-json/mdi": "^1.1.47",
+    "@iconify-json/mi": "^1.1.4",
+    "@iconify-json/twemoji": "^1.1.11"
   }
 }
