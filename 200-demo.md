@@ -143,3 +143,63 @@ defmodule Weather.ApiTest do
 end
 
 ```
+
+---
+layout: section
+---
+
+# Misc markdown syntax
+
+---
+
+# Local image
+
+![working][]
+
+* Slide bullet text
+* Slide bullet text
+* Slide bullet text
+ 
+![working][]
+
+[working]: /images/working.jpg
+
+---
+
+# Local image tag
+
+<img src="/images/working.jpg" style="float:right; margin:auto" width="20%" hspace="5%" vspace="1%"/>
+
+* Slide bullet text
+* Slide bullet text
+* Slide bullet text
+ 
+<img src="/images/working.jpg" style="display:block; margin:auto" width="80%" hspace="1%" vspace="1%"/>
+
+---
+
+# Local image tag (II)
+
+<img src="/images/working.jpg" class="m-40 h-40 rounded shadow" />
+
+* Slide bullet text
+* Slide bullet text
+* Slide bullet text
+
+---
+
+# Presenter Notes
+
+* Slide bullet text
+* Slide bullet text
+* Slide bullet text
+
+<!--
+This is a paragraph.
+
+And this is a bullet list ...
+
+* ???
+* ???
+* ???
+-->
