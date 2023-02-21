@@ -1,5 +1,4 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy slides to pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -39,7 +38,7 @@ jobs:
       - name: Install slidev
         run:  npm install --global @slidev/cli @slidev/theme-default @slidev/theme-apple-basic
       - name: Build pages
-        run: slidev build
+        run: slidev build --base ./
       - name: Setup pages
         uses: actions/configure-pages@v3
       - name: Upload pages
