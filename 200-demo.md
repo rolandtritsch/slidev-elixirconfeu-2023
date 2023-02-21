@@ -203,3 +203,22 @@ And this is a bullet list ...
 * ???
 * ???
 -->
+
+---
+
+# Icons
+
+<mdi-account-circle /> - ???
+<carbon-badge /> - ???
+<uim-rocket /> - ???
+<twemoji-cat-with-tears-of-joy /> - ???
+<logos-vue /> - ???
+
+View more/all [icons][] ... like ...
+
+<mi-circle-add />
+<mi-circle-remove />
+<mi-circle-check />
+<mi-circle-error />
+<mi-circle-help />
+<mi-circle-information />
