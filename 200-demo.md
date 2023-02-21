@@ -62,6 +62,26 @@ image: 'https://live.staticflickr.com/65535/49768700213_0c23e49354_z.jpg'
 ## Slide Subtitle
 
 ---
+
+---
+layout: two-cols
+---
+
+# Left
+
+* Slide bullet text
+* Slide bullet text
+* Slide bullet text
+
+::right::
+
+# Right
+
+* Slide bullet text
+* Slide bullet text
+* Slide bullet text
+
+---
 layout: image-right
 image: 'https://live.staticflickr.com/65535/49768700213_0c23e49354_z.jpg'
 ---
@@ -208,11 +228,11 @@ And this is a bullet list ...
 
 # Icons
 
-<mdi-account-circle /> - ???
-<carbon-badge /> - ???
-<uim-rocket /> - ???
-<twemoji-cat-with-tears-of-joy /> - ???
-<logos-vue /> - ???
+<mdi-account-circle /> - ??? <br/>
+<carbon-badge /> - ??? <br/>
+<uim-rocket /> - ??? <br/>
+<twemoji-cat-with-tears-of-joy /> - ??? <br/>
+<logos-vue /> - ??? <br/>
 
 View more/all [icons][] ... like ...
 
@@ -222,3 +242,5 @@ View more/all [icons][] ... like ...
 <mi-circle-error />
 <mi-circle-help />
 <mi-circle-information />
+
+[icons]: https://icones.js.org

@@ -5,5 +5,9 @@
     "@slidev/theme-default": "^0.21.2",
     "h": "^1.0.0",
     "help": "^3.0.2"
+  },
+  "devDependencies": {
+    "@iconify-json/logos": "^1.1.23",
+    "@iconify-json/mi": "^1.1.4"
   }
 }
