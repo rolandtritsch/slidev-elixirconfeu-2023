@@ -31,12 +31,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup node
         uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-      - name: Install slidev
-        run:  npm install --global @slidev/cli @slidev/theme-default @slidev/theme-apple-basic
       - name: Install dependencies
-        run: npm install
+        run: npm --global install
       - name: Build pages
         run: slidev build --base '/slidev-elixirconfeu-2023'
       - name: Setup pages
