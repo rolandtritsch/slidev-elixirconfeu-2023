@@ -33,10 +33,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '18'
-      - name: Install dependencies
-        run: npm install
       - name: Install slidev
         run:  npm install --global @slidev/cli @slidev/theme-default @slidev/theme-apple-basic
+      - name: Install dependencies
+        run: npm install
       - name: Build pages
         run: slidev build --base ./
       - name: Setup pages
