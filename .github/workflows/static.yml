@@ -33,8 +33,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '18'
+      - name: Install slidev
+        run: npm install @slidev/cli --global
       - name: Install dependencies
-        run: npm install --global --legacy-peer-deps
+        run: npm install
       - name: Build pages
         run: slidev build --base '/slidev-elixirconfeu-2023'
       - name: Setup pages
