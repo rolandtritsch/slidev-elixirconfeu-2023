@@ -2,7 +2,7 @@
 theme: apple-basic
 background: ./backgrounds/community-white.png
 transition: fade-out
-download: true
+download: http://tedn.life/slidev-elixirconfeu-2023/slides.pdf
 ---
 
 ---
