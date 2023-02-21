@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: '18'
       - name: Install dependencies
-        run: npm install --global
+        run: npm install --global --legacy-peer-deps
       - name: Build pages
         run: slidev build --base '/slidev-elixirconfeu-2023'
       - name: Setup pages
