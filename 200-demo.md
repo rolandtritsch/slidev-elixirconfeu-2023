@@ -168,7 +168,7 @@ end
 layout: section
 ---
 
-# Misc markdown syntax
+# Markdown Syntax
 
 ---
 
@@ -244,3 +244,24 @@ View more/all [icons][] ... like ...
 <mi-circle-information />
 
 [icons]: https://icones.js.org
+
+---
+
+# Diagrams
+
+```mermaid
+sequenceDiagram
+  Alice->John: Hello John, how are you?
+  Note over Alice,John: A typical interaction
+```
+
+---
+
+# Diagrams (cont.)
+
+```mermaid {theme: 'neutral', scale: 0.8}
+graph TD
+B[Text] --> C{Decision}
+C -->|One| D[Result 1]
+C -->|Two| E[Result 2]
+```
