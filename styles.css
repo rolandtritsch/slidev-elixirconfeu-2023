@@ -1,0 +1,21 @@
+/* style.css */ 
+
+p {
+    font-size: 1.4rem;
+}
+
+ul li {
+    font-size: 1.2rem;
+}
+
+ul li ul li {
+    font-size: 1.0rem;
+}
+
+ul li ul li ul li {
+    font-size: 0.8rem;
+}
+
+ul {
+    margin-top: unset;
+}
