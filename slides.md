@@ -4,7 +4,6 @@ background: ./backgrounds/community-white.png
 transition: fade-out
 download: true
 ---
-
 ---
 src: ./000-intro.md
 ---
