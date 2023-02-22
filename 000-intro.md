@@ -109,7 +109,7 @@ And I am very passionate about testing.
 
 ---
 
-<div class="flex h-full justify-center">
+<div class="flex justify-center">
   <a href="https://pragprog.com/titles/lmelixir/testing-elixir/">
     <img src="/images/book.png" class="rounded shadow"/>
   </a>
@@ -204,8 +204,6 @@ effective, efficient, fun remote-first software-engineering
 organisations.
 
 -->
-
----
 
 ---
 layout: 3-images
@@ -312,13 +310,11 @@ Let's find out what is what ...
 -->
 
 ---
-
----
 layout: image-right
 image: /images/covid-testing.png
 ---
 
-# Unit-Testing
+## Unit-Testing
 
 * What ...
   * The pure/public methods of an interface/module
@@ -339,13 +335,11 @@ Unit-Testing ...
 -->
 
 ---
-
----
 layout: image-right
 image: /images/covid-testing.png
 ---
 
-# Integration-Testing
+## Integration-Testing
 
 * What ...
   * Testing the public api of the service
@@ -371,7 +365,7 @@ layout: image-right
 image: /images/covid-testing.png
 ---
 
-# System-Testing (E2E)
+## System-Testing (E2E)
 
 * What ...
   * Testing the integration with the rest of the services
@@ -400,7 +394,7 @@ layout: image-right
 image: /images/covid-testing.png
 ---
 
-# Smoke-Testing
+## Smoke-Testing
 
 * What ...
   * Testing a service end-to-end (happy-path)
@@ -429,7 +423,7 @@ layout: image-right
 image: /images/covid-testing.png
 ---
 
-# Scale-Testing
+## Scale-Testing
 
 * What ...
   * Testing the throughput and response-times of services (and/or the
@@ -454,7 +448,7 @@ layout: image-right
 image: /images/covid-testing.png
 ---
 
-# Stress-Testing
+## Stress-Testing
 
 * What ...
   * Testing when the system breaks and how it will break (gradual degradation of service; beware of the cliff)
@@ -478,7 +472,7 @@ layout: image-right
 image: /images/covid-testing.png
 ---
 
-# Chaos-Testing
+## Chaos-Testing
 
 * What ...
   * Testing for the absence of a single-point-of-failure
@@ -512,4 +506,3 @@ Back to you Jeffrey ...
 
 -->
 
----

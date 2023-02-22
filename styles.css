@@ -1,5 +1,3 @@
-/* style.css */ 
-
 p {
     font-size: 1.4rem;
 }
@@ -16,6 +14,6 @@ ul li ul li ul li {
     font-size: 0.8rem;
 }
 
-ul {
+.slidev-layout ul {
     margin-top: unset;
 }
