@@ -13,16 +13,25 @@ src: ./010-lecture-1.md
 src: ./011-lecture-1-exercise.md
 ---
 ---
+src: ./break.md
+---
+---
 src: ./020-lecture-2.md
 ---
 ---
 src: ./021-lecture-2-exercise.md
 ---
 ---
+src: ./break.md
+---
+---
 src: ./030-lecture-3.md
 ---
 ---
 src: ./031-lecture-3-exercise.md
+---
+---
+src: ./break.md
 ---
 ---
 src: ./040-lecture-4.md
