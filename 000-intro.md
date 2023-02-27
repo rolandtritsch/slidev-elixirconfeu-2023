@@ -133,7 +133,7 @@ discount code that you can use to get the book for
 layout: fact
 ---
 
-# Code
+# Discount Code
 10% off
 
 ---
@@ -207,9 +207,9 @@ organisations.
 
 ---
 layout: 3-images
-imageLeft: /images/van.jpg
-imageTopRight: /images/working.jpg
-imageBottomRight: /images/tedn-france.png
+imageLeft: /images/tedn-france.png
+imageTopRight: /images/van.jpg
+imageBottomRight: /images/working.jpg
 ---
 
 <!--
