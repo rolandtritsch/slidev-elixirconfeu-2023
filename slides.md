@@ -38,7 +38,7 @@ export:
 highlighter: 'prism'
 
 # show line numbers in code blocks
-lineNumbers: false
+lineNumbers: true
 
 # enable monaco editor, can be boolean, 'dev' or 'build'
 monaco: 'dev'
