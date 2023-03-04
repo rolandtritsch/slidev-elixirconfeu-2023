@@ -83,7 +83,7 @@ fonts:
 
 # default frontmatter applies to all slides
 defaults:
-  layout: 'apple-basic'
+  layout: 'default'
 
 # drawing options
 # Learn more: https://sli.dev/guide/drawing.html
