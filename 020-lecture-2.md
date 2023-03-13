@@ -18,6 +18,23 @@ image: /images/twins.png
 
 Welcome to Lecture 2 ...
 
+We now have a good, initial understanding how we can test units
+(functions/modules).
+
+Next level up we need to make sure/verify/test, if the units work
+together as expected. In a SaaS/backend/restful-api context you
+are now talking about testing your service (and all it's endpoints).
+
+For that to happen we need to find a way to deal with all the external
+dependencies (other internal services, infrastructure, ...). Remember:
+We need to be able to run these on you laptop. Reliably.
+
+Luckily there are concepts like Fakes, Stubs, Mocks, ... that we will
+formally introduce in the Lecture that can help us with this.
+
+Even more there are frameworks like ByPass and Mox and Hammox that can
+help us to implement these concepts.
+
 -->
 
 ---
@@ -40,7 +57,10 @@ image: /images/twins.png
 
 <!--
 
-Notes ...
+Means ... the fact of live is: We have dependencies and need to find a
+way to "simulate" them.
+
+Let's talk about dependencies some more ...
 
 -->
 
@@ -64,7 +84,10 @@ image: /images/twins.png
 
 <!--
 
-Notes ...
+Initially this sounds bad. And if you do it wrong it can be, but
+... this is why we are here: Let's do it right.
+
+First things first: In some cases you can get away with murder ... 
 
 -->
 
@@ -90,7 +113,7 @@ image: /images/twins.png
 
 <!--
 
-Notes ...
+
 
 -->
 
