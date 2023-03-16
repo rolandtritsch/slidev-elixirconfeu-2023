@@ -1,6 +1,6 @@
 ---
 layout: image-right
-image: /images/twins.png
+image: /images/weather.png
 ---
 
 # Lecture 2 - Integration-Testing
@@ -13,7 +13,7 @@ image: /images/twins.png
 * Using [Hammox][]
 
 [Hammox]: https://github.com/msz/hammox
-[OpenWeather] : https://openweathermap.org
+[OpenWeather]: https://openweathermap.org
 
 <!--
 
