@@ -72,11 +72,11 @@ image: /images/twins.png
 # External dependencies
 
 * Try to get away with murder (use the dependency!?!?)
-  * Easy/Fast, Brittle, Expensive, …
+  * Easy/Fast, Brittle, Expensive, ...
 * Internal/External Services
   * Use them (Use a/the sandbox)
-* Infrastructure (databases, caches, …)
-  * Use them (locally; containers, …)
+* Infrastructure (databases, caches, ...)
+  * Use them (locally; containers, ...)
 
 ... or ...
 
@@ -120,6 +120,140 @@ image: /images/twins.png
 ---
 
 # Mocking with Hammox
+
+* Using a Weather app (also for the exerices)
+* TODO: Introducing hammox and it's main functions
+
+---
+
+# Mocking with Hammox
+
+## Setup - The mix file
+
+```elixir {11|all}
+defmodule Weather.MixProject do
+  
+  # ... skipping lines ...
+  
+  # Run "mix help deps" to learn about dependencies.
+  defp deps do
+    [
+      {:httpoison, ">= 0.0.0"},
+      {:jason, ">= 0.0.0"},
+      # --- test only
+      {:hammox, ">= 0.0.0", only: :test}
+    ]
+  end
+  
+  # ... skipping lines ...
+
+end
+```
+
+---
+
+# Mocking with Hammox
+
+## Setup - The mix file
+
+```elixir {9|18-19|all}
+defmodule Weather.MixProject do
+  use Mix.Project
+
+  def project do
+    [
+      app: :weather,
+      version: "0.1.0",
+      elixir: "~> 1.14",
+      elixirc_paths: elixirc_paths(Mix.env()),
+      start_permanent: Mix.env() == :prod,
+      deps: deps()
+    ]
+  end
+  
+  # ... skipping lines ...
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_env), do: ["lib"]
+end
+```
+
+---
+
+# Mocking with Hammox
+
+## Setup - The test
+
+```elixir {6,8|all}
+defmodule WeatherTest do
+  @moduledoc false
+
+  use ExUnit.Case, async: true
+
+  use Hammox.Protect, module: Weather.Api, behaviour: Weather.Api.Behaviour
+
+  import Hammox
+  
+  # ... missing lines ...
+
+end
+```
+
+---
+
+# Mocking with Hammox
+
+## The test
+
+```elixir {7-20|22-23|all}
+defmodule WeatherTest do
+  
+  # ... missing lines ...
+  
+  describe "rain?/2 - using mocks" do
+    test "success: gets forecasts, returns true for imminent rain" do
+      expect(Weather.Api.Mock, :get_forecast, 1, fn city ->
+        assert city == "Dublin"
+
+        response = %{
+          "list" => [
+            %{
+              "dt" => DateTime.to_unix(DateTime.utc_now()) + 60,
+              "weather" => [%{"id" => _thunderstorm = 231}]
+            }
+          ]
+        }
+
+        {:ok, response}
+      end)
+
+      assert Weather.rain?("Dublin", DateTime.utc_now())
+      verify!(Weather.Api.Mock)
+    end
+  end
+end
+```
+
+---
+
+# Mocking with Hammox
+
+## The behavior
+
+```elixir
+defmodule Weather.Api.Behaviour do
+  @callback get_forecast(String.t()) ::
+              {:ok, map()} | {:error, reason :: term()}
+end
+```
+
+## The mock
+
+```elixir {1|all}
+import Hammox
+
+defmock(Weather.Api.Mock, for: Weather.Api.Behaviour)
+```
 
 ---
 
