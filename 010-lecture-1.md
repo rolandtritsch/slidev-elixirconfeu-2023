@@ -315,8 +315,6 @@ layout: two-cols
 
 ::right::
 
-# .
-
 * This is how we can assert that the test double was called, testing
   that a side effect (query) happened in our code under
   test. Therefore this double is a mock
