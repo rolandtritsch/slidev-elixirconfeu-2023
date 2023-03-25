@@ -100,20 +100,99 @@ image: /images/twins.png
 
 * (API) Fakes - using FakeModules
   * Good: Simple
-  * Bad: Some work
+  * Bad: Some (manual) work
   * Ugly: Dependency injection
 * Stubs - *Generating* Fakes
   * Good: Tooling available
-  * Bad: A little bit more work
-  * Ugly: ???
-* Mocks - ???
-  * Good: ???
-  * Bad: ???
-  * Ugly: ???
+  * Bad: Not checking number of invokations
+  * Ugly: N/A
+* Mocks - *Intelligent* Stubs
+  * Good: Checking number of invokations
+  * Bad: N/A
+  * Ugly: N/A
 
 <!--
 
+Now let's talk about the kinds of dependency doubles we can consider.
 
+We already know/understand what a fake is and how it works.
+
+And there is quite a bit of scaffolding that we need to build and
+implement.
+
+For stubs and mocks this effort is greatly reduced, because there
+is tooling available that will generate a lot of the code for us.
+
+Let's take a look at this ...
+
+-->
+
+---
+
+# Mocking with [Mox][]
+
+* Mox is a library for defining concurrent mocks in Elixir
+* It generates mocks based on `behaviors`
+* And it articulates what these mocks are suppose to do by
+  means of `expectations`
+* Most people use `Mox`, but ...
+
+[Mox]: https://github.com/dashbitco/mox 
+
+<!--
+
+THE tool of choice when it comes to mocking an API is Mox.
+
+It generates the mocks based on behaviors (using @callback)
+and articulates what the mocks are suppose to do by allowing
+to specify so-called expectations.
+
+We will explain in a second how all of that works.
+
+But ...
+
+... we can do event better.
+
+-->
+
+---
+
+# Mocking with [Hammox][]
+
+* Small Problem: Mox does not check the signature of the mocks
+  * Means, if the signature changes the test might pass, but the
+    application might fail when it runs
+* Hammox solves this problem
+  * It ensures that both your mocks and implementations fulfill the
+    same contract (when/while the tests are running (we will talk
+    about this/show this later))
+  * To get to that goodness you just need to replace Mox with Hammox
+* Hammox automatically checks that mocks stay in sync with the
+  behaviours. You can also decorate the api with `Hammox.protect/2`.
+  This will ensure that the implementation stays in sync with the
+  behaviours
+* Using a Weather app (also for the exerices)
+  * Using the OpenWeather API
+  * `get_forecast/2` for a city and find out, if it is going to `rain?/2`
+    any time soon
+
+[Hammox]: https://github.com/msz/hammox
+
+<!--
+
+Hammox is a very thin layer on top of Mox.
+
+But it adds a good capability: It checks if the interface of the
+mocks still fit the implementation.
+
+It allows the triangle of behavior, mock and implementation to
+stay in sync.
+
+Note: Dialyzer is a static analysis tool; Hammox is a dynamic contract
+test provider. They operate differently and one can catch some bugs
+when the other doesn't. While it is true that Hammox would be
+redundant given a strong, strict, TypeScript-like type system for
+Elixir, Dialyzer is far from providing that sort of coverage.
 
 -->
 
@@ -121,21 +200,11 @@ image: /images/twins.png
 
 # Mocking with Hammox
 
-* Using a Weather app (also for the exerices)
-* TODO: Introducing hammox and it's main functions
-
----
-
-# Mocking with Hammox
-
 ## Setup - The mix file
 
-```elixir {11|all}
+```elixir {all|8|all}
 defmodule Weather.MixProject do
-  
-  # ... skipping lines ...
-  
-  # Run "mix help deps" to learn about dependencies.
+  # ... 
   defp deps do
     [
       {:httpoison, ">= 0.0.0"},
@@ -144,9 +213,7 @@ defmodule Weather.MixProject do
       {:hammox, ">= 0.0.0", only: :test}
     ]
   end
-  
-  # ... skipping lines ...
-
+  # ...
 end
 ```
 
@@ -156,7 +223,7 @@ end
 
 ## Setup - The mix file
 
-```elixir {9|18-19|all}
+```elixir {all|9|15-16|all}
 defmodule Weather.MixProject do
   use Mix.Project
 
@@ -170,9 +237,7 @@ defmodule Weather.MixProject do
       deps: deps()
     ]
   end
-  
-  # ... skipping lines ...
-
+  # ...
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_env), do: ["lib"]
 end
@@ -184,18 +249,15 @@ end
 
 ## Setup - The test
 
-```elixir {6,8|all}
+```elixir {all|6|all}
 defmodule WeatherTest do
   @moduledoc false
 
   use ExUnit.Case, async: true
 
-  use Hammox.Protect, module: Weather.Api, behaviour: Weather.Api.Behaviour
-
   import Hammox
   
-  # ... missing lines ...
-
+  # ...
 end
 ```
 
@@ -205,11 +267,9 @@ end
 
 ## The test
 
-```elixir {7-20|22-23|all}
+```elixir {all|5-18|20-21|all}
 defmodule WeatherTest do
-  
-  # ... missing lines ...
-  
+  # ...
   describe "rain?/2 - using mocks" do
     test "success: gets forecasts, returns true for imminent rain" do
       expect(Weather.Api.Mock, :get_forecast, 1, fn city ->
@@ -240,24 +300,53 @@ end
 
 ## The behavior
 
-```elixir
-defmodule Weather.Api.Behaviour do
+```elixir {all|3-4|all}
+defmodule Weather.Api do
+  # ...
   @callback get_forecast(String.t()) ::
-              {:ok, map()} | {:error, reason :: term()}
+          {:ok, map()} | {:error, reason :: term()}
+  @spec get_forecast(String.t()) ::
+          {:ok, map()} | {:error, reason :: term()}
+  def get_forecast(city) do
+    # ...
+  end
 end
 ```
 
 ## The mock
 
-```elixir {1|all}
+```elixir
 import Hammox
 
-defmock(Weather.Api.Mock, for: Weather.Api.Behaviour)
+defmock(Weather.Api.Mock, for: Weather.Api)
 ```
 
 ---
 
-# Mocking with Plugs
+# Mocking with Hammox
+
+## Breaking the contract
+
+```elixir {all|3-4|all}
+defmodule Weather.Api do
+  # ...
+  @callback get_forecast(String.t()) ::
+          map() | {:error, reason :: term()}
+  @spec get_forecast(String.t()) ::
+          {:ok, map()} | {:error, reason :: term()}
+  def get_forecast(city) do
+    # ...
+  end
+end
+```
+
+## The error
+
+```text {all|3|all}
+  1) test rain?/2 - using mocks success
+     test/weather_test.exs:18
+     ** (Hammox.TypeMatchError) 
+```
 
 ---
 
@@ -268,10 +357,13 @@ defmock(Weather.Api.Mock, for: Weather.Api.Behaviour)
 # Mocking with Cassettes
 
 ---
+layout: image-right
+image: /images/twins.png
+---
 
 # Tools/Techniques
 
-* Mox
+* Hammox
   * Good: ???
   * Bad: ???
   * Ugly: ???
@@ -283,3 +375,25 @@ defmock(Weather.Api.Mock, for: Weather.Api.Behaviour)
   * Good: ???
   * Bad: ???
   * Ugly: ???
+
+---
+layout: image-right
+image: /images/twins.png
+---
+
+# Summary
+
+## Main/Key Takeaways ...
+
+* Pick your battles, but in most cases you want/need to mock
+  your external dependencies
+* Use Hammox (until you have a reason not to use it; and then
+  just use Mox), because it gives you the contract check for
+  free
+* ???
+
+<!--
+
+Notes ...
+
+-->
