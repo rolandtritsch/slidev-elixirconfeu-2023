@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build slides
-        run: slidev build --base '/slidev-elixirconfeu-2023'
+        run: slidev build --base '/slidev-elixirconfeu-2023/'
       - name: Export slides
         run: slidev export --output 'dist/slides.pdf'
       - name: Setup pages
