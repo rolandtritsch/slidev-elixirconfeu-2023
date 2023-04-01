@@ -84,7 +84,7 @@ layout: statement
 
 <!--
 
-Notes ...
+Let's first talk about Generators ...
 
 -->
 
@@ -92,14 +92,15 @@ Notes ...
 
 # StreamData - Generators
 
-* This is why StreamData is called StreamData :)
-* Setup (mix.exs) ...
+* This is why `StreamData` is called `StreamData` :)
+* Setup (`mix.exs`) ...
 ```elixir
     defp deps do
       [{:stream_data, ">= 0.0.0", only: [:dev, :test]}] 
     end
 ```
-* Standard/Default generators …
+
+* Standard/Default generators ...
   * `StreamData.integer(), *.string(), *.float(), *.member_of()`
   * `StreamData.map(StreamData.integer(), &abs/1)`
   * `StreamData.list_of(StreamData.integer())`
@@ -107,33 +108,56 @@ Notes ...
 
 <!--
 
-Notes ...
+Generators create a stream of data.
 
 -->
 
 ---
 
-# StreamData - Generators … (cont.)
+# StreamData - Generators ... (cont.)
 
-* Composing generators …
-  * `StreamData.bind/2`
-  * ```elixir
-    domains = ["gmail.com", "yahoo.com", "icloud.com"]
-    random_domain_generator = StreamData.member_of(domains)
-    username_generator = StreamData.string(:alphanumeric, min_length: 1)
-    
-    random_email_generator =
-      StreamData.bind(random_domain_generator, fn domain ->
-        StreamData.map(username_generator, fn username ->
-          "#{username}@#{domain}"
-        end)
-      end)
-    ```
+* Composing generators with `StreamData.bind/2` ...
+```elixir
+domains = ["gmail.com", "yahoo.com", "icloud.com"]
+random_domain_generator = StreamData.member_of(domains)
+username_generator = StreamData.string(:alphanumeric, min_length: 1)
+
+random_email_generator =
+  StreamData.bind(random_domain_generator, fn domain ->
+    StreamData.map(username_generator, fn username ->
+      "#{username}@#{domain}"
+    end)
+  end)
+```
+
 * Shrinking ...
-  * Finding (new) minimal edge-cases. Find least-complex value
-that makes property fail
-    * All odd numbers are prime fails for 95 ... and for???!
+  * Finding (new) minimal edge-cases. Find least-complex value that
+    makes property fail
+    * All odd numbers are prime fails for 95 ... and for ... ???!
   * `StreamData.map() vs. Stream.map()`
+
+<!--
+
+Binding can combine Generators.
+
+You need to use bind to make sure shrinking works (use
+`StreamData.map/2` not `Stream.map/2`).
+
+-->
+
+---
+
+# StreamData - Generators ... (cont.)
+
+* Generation size ...
+  * A measurement of complexity for the generated values
+  * Over time values should get more complex (short simple strings ->
+    long complex strings)
+  * Static vs. dynamic vs. fixed generations
+    * `StreamData.integer() |> StreamData.resize(50)`
+    * `StreamData.integer() |> StreamData.scale(fn size -> min(size, _cap = 20) end)`
+    * `StreamData.sized(fn size -> if size >= 10, do: Stream.float(), else:
+...)`
 
 <!--
 
@@ -143,17 +167,8 @@ Notes ...
 
 ---
 
-# StreamData - Generators … (cont.)
+# StreamData - Generators ... (cont.)
 
-* Generation size ...
-  * A measurement of complexity for the generated values
-  * Over time values should get more complex (short simple strings ->
-    long complex strings)
-  * Static vs, dynamic vs. fixed generations
-    * `StreamData.integer() |> StreamData.resize(50)`
-    * `StreamData.integer() |> StreamData.scale(fn size -> min(size, _cap = 20) end)`
-    * `StreamData.sized(fn size -> if size >= 10, do: Stream.float(), else:
-...)`
 * Combine it with Faker ...
   * ???
   * ???
@@ -185,7 +200,7 @@ Notes ...
 
 # StreamData - Properties
 
-```elixir {3|5-6|all}
+```elixir {all|3|5-6|all}
 defmodule FirstPropertySortTest do
   use ExUnit.Case
   use ExUnitProperties

@@ -9,7 +9,7 @@ image: /images/pascal.png
 
 * Pascal's Triangle
 * Properties
-* ???
+* Generator
 
 <!--
 
@@ -37,7 +37,6 @@ Welcome to the exerise for Lecture 4. Almost done ...
   * If you get timeouts, try to limit your generator to integers not bigger
 than 100
   * You are testing `nth/1`
-  * ???
 
 <!--
 
@@ -55,8 +54,6 @@ Welcome to the exerise for Lecture 4. Almost done ...
     more properties
 * Stretch Goal(s) ...
   * Implement a `generator` to generate integers in [0..]
-  * ???
-  * ???
 
 <!--
 
