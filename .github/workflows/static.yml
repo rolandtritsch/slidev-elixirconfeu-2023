@@ -20,7 +20,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -37,8 +36,10 @@ jobs:
         run: npm install @slidev/cli --global
       - name: Install dependencies
         run: npm install
-      - name: Build pages
+      - name: Build slides
         run: slidev build --base '/slidev-elixirconfeu-2023'
+      - name: Export slides
+        run: slidev export --output 'dist/slides.pdf'
       - name: Setup pages
         uses: actions/configure-pages@v3
       - name: Upload pages
