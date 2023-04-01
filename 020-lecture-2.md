@@ -217,6 +217,12 @@ defmodule Weather.MixProject do
 end
 ```
 
+<!--
+
+Just add the dependency.
+
+-->
+
 ---
 
 # Mocking with Hammox
@@ -243,6 +249,12 @@ defmodule Weather.MixProject do
 end
 ```
 
+<!--
+
+Just add the dependency.
+
+-->
+
 ---
 
 # Mocking with Hammox
@@ -260,6 +272,14 @@ defmodule WeatherTest do
   # ...
 end
 ```
+
+<!--
+
+Not a lot to do here.
+
+Just import Hammox. Done.
+
+-->
 
 ---
 
@@ -294,6 +314,17 @@ defmodule WeatherTest do
 end
 ```
 
+<!--
+
+Making the mock work, requires us to articulate an expectation.
+
+And then verify that that expectation was met.
+
+You can also use `setup` to configure Hammox/Mox to run the 
+verification automatically after each test.
+
+-->
+
 ---
 
 # Mocking with Hammox
@@ -320,6 +351,15 @@ import Hammox
 
 defmock(Weather.Api.Mock, for: Weather.Api)
 ```
+
+<!--
+
+We now/finally just need to define the mock for a given behavior.
+
+Put this file (`mocks.ex`) into `test/support` to make sure it gets
+compiled.
+
+-->
 
 ---
 
@@ -348,13 +388,98 @@ end
      ** (Hammox.TypeMatchError) 
 ```
 
+<!--
+
+Now ... here comes the good stuff ...
+
+If you break the contract Hammox will actually give you a meaningful
+error message at the time, when you run the test.
+
+You can make this even stronger with the `protect/2` macro.
+
+Please also see the Hammox README to understand why this is better,
+than just using/running the dialyzer.
+
+-->
+
+---
+layout: two-cols
 ---
 
-# Mocking with ByPass
+# Mocking with [ByPass][]
+
+```elixir
+test "get_forecast/1 hits GET /data/2.5/forecast", %{bypass: bypass} do
+  # ...
+  Bypass.expect_once(bypass, "GET", "/data/2.5/forecast", fn conn ->
+    conn = Plug.Conn.fetch_query_params(conn)
+    assert conn.query_params["q"] == query
+    assert conn.query_params["APPID"] == app_id
+    
+    conn
+    |> Plug.Conn.put_resp_content_type("application/json")
+    |> Plug.Conn.resp(200, Jason.encode!(forecast_data))
+  end)
+  # ...
+end
+```
+
+::right::
+
+### Notes
+
+* .
+  * Bypass provides a quick way to create a custom plug that can be
+    put in place instead of an actual HTTP server
+  * Again you are asked to articlate an expectation what the mock http
+    server is suppose to return
+  * Full disclosure: I am not using it a lot/frequently
+  
+[ByPass]: https://github.com/PSPDFKit-labs/bypass
+
+<!--
+
+Mocking with ByPass.
+
+--> 
 
 ---
+layout: two-cols
+---
 
-# Mocking with Cassettes
+# Mocking with [Cassettes][]
+
+```elixir
+test "get_forecast/1 hits GET /data/2.5/forecast" do
+  # ...
+  use_cassette "weather_api_successful_request" do
+    assert {:ok, body} = WeatherApp.API.get_forecast("Los Angeles")
+  end
+  # ...
+end
+```
+
+::right::
+
+### Notes
+
+* .
+  * With cassettes you can record and replay HTTP interactions library
+    for Elixir. It's inspired by Ruby's VCR
+  * The first time you run the test, the reponses from the real
+    external dependency will be recorded. Second time you run the test
+    they will be used to verify that your code is still doing the
+    right thing
+  * You can reset/rerecord at any time to refresh the cassettes (and
+    should do so frequently (once a month))
+
+[Cassettes]: https://github.com/parroty/exvcr
+
+<!--
+
+Mocking with Cassettes.
+
+--> 
 
 ---
 layout: image-right
@@ -390,7 +515,9 @@ image: /images/twins.png
 * Use Hammox (until you have a reason not to use it; and then
   just use Mox), because it gives you the contract check for
   free
-* ???
+* There are other approaches to mock dependencies (e.g. ByPass,
+  Cassettes, ...) that can be useful, but that we have only mentioned
+  briefly
 
 <!--
 
