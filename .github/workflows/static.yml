@@ -37,7 +37,9 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build slides
-        run: slidev build
+        run: slidev build --base '/slidev-elixirconfeu-2023/' --out './dist/slidev-elixirconfeu-2023'
+      - name: Fix dist
+        run: mv ./dist/slidev-elixirconfeu-2023/_redirects ./dist
       - name: Setup pages
         uses: actions/configure-pages@v3
       - name: Upload pages
