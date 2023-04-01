@@ -41,8 +41,8 @@ jobs:
       - name: Fix dist
         run: |
           mkdir ./dist/slidev-elixirconfeu-2023
-          mv ./dist/assets ./dist/slidev-elixirconfeu-2023
-          mv ./dist/images ./dist/slidev-elixirconfeu-2023
+          cp -r ./dist/assets ./dist/slidev-elixirconfeu-2023/assets
+          cp -r ./dist/images ./dist/slidev-elixirconfeu-2023/images
       - name: Setup pages
         uses: actions/configure-pages@v3
       - name: Upload pages
